@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="INFO">
+    <Properties>
+        <Property name="log-file-name">TypeApprovalReminder</Property>
+        <Property name="app-logs-dir">/u02/ceirdata/logs/${log-file-name}</Property>
+        <Property name="log-level">INFO</Property>
+    </Properties>
+    <Appenders>
+        <RollingFile name="LogToFile"
+                     fileName="${app-logs-dir}/${log-file-name}.log"
+                     filePattern="${app-logs-dir}/${log-file-name}-%d{yyyyMMdd}-%i.log">
+                <PatternLayout>
+                    <Pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%C] %-5level :%L - %msg%n</Pattern>
+                </PatternLayout>
+                <Policies>
+                    <TimeBasedTriggeringPolicy interval="1" modulate="true"/>
+                    <SizeBasedTriggeringPolicy size="250 MB"/>
+                </Policies>
+        </RollingFile>
+    </Appenders>
+    <Loggers>
+            <Root level="${log-level}">
+            <AppenderRef ref="LogToFile"/>
+        </Root>
+    </Loggers>
+</Configuration>
